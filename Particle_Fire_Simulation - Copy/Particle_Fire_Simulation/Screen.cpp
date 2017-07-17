@@ -48,7 +48,7 @@ namespace kl {
 		try {
 			m_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 			// assign (set) memory bytes to color buffer 
-			memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+			memset(m_buffer, 255, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
 			/*for (int i = 0; i < (SCREEN_WIDTH * SCREEN_HEIGHT); i++) {
 				m_buffer[i] = 0xFF00FFFF;  // This is only for testing if m_buffer works correctly
@@ -70,6 +70,8 @@ namespace kl {
 
 
 	void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
+		if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) { return; }
+
 		Uint32 color = 0;  
 		color += red; 
 		color <<= 8; 
@@ -83,6 +85,10 @@ namespace kl {
 		// (y * SCREEN_WIDTH) gives the number of row and (y * SCREEN_WIDTH) + x gives the 
 		// right position from that row
 		m_buffer[(y * SCREEN_WIDTH) + x] = color; 
+	}
+
+	void Screen::clear() {
+		memset(m_buffer, 255, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 	}
 
 	void Screen::close() {
