@@ -1,18 +1,23 @@
 #pragma once
 #include <iostream>
+#include <SDL.h>
+#include <math.h>
 
 class Particle
 {
-public: 
-	double m_x; 
-	double m_y; 
+private: 
+	void init();
 
-	double m_xspeed;
-	double m_yspeed;
+public: 
+	double m_x; // position x of particle
+	double m_y; // position y of particle
+	 
+	double m_speed; // particle speed 
+	double m_direction; // particle direction
 
 public:
 	Particle();
-	virtual ~Particle();
-	void update();
+	virtual ~Particle();  
+	void moveUpdate(int interval);
 };
 
